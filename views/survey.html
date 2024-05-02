@@ -16,9 +16,11 @@
         <p>Check all that apply</p>
         <repeat group="{{ @surveyoptions }}" value="{{ @option }}">
             <label>
-                <input type="radio" name="option" value = "{{@option}}">{{ @option }}
+                <input type="checkbox" name="option[]" value = "{{@option}}">{{ @option }}
             </label><br>
         </repeat>
+
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>

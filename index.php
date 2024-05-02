@@ -21,14 +21,35 @@ $f3->route('GET /', function() {
 });
 
 // Survey reroute page
-$f3->route('GET /survey', function($f3) {
+$f3->route('GET|POST /survey', function($f3) {
+
+    $name = "";
+    $surveyOptions = null;
 
     $surveyOptions = getSurveyOptions();
     $f3 -> set('surveyoptions', $surveyOptions);
 
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+        $name = $_POST['name'];
+        $surveyOptions = $_POST['option'];
+    }
+
+    $f3->set('SESSION.name', $name);
+    $f3->set('SESSION.options', $surveyOptions);
+
+    if (isset($_POST['name'])) {
+        $f3 -> reroute('summary');
+    }
+
     // Render a view page
     $view = new Template();
     echo $view->render('views/survey.html');
+});
+
+$f3->route('GET|POST /summary', function() {
+    // Render a view page
+    $view = new Template();
+    echo $view->render('views/summary.html');
 });
 
 // Run Fat-Free
