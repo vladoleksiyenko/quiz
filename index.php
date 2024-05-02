@@ -8,6 +8,8 @@ error_reporting(E_ALL);
 // Require the autoload file
 require_once ('vendor/autoload.php');
 
+require_once('model/data.php');
+
 // Instantiate the F3 Base class
 $f3 = Base::instance();
 
@@ -19,7 +21,11 @@ $f3->route('GET /', function() {
 });
 
 // Survey reroute page
-$f3->route('GET /survey', function() {
+$f3->route('GET /survey', function($f3) {
+
+    $surveyOptions = getSurveyOptions();
+    $f3 -> set('surveyoptions', $surveyOptions);
+
     // Render a view page
     $view = new Template();
     echo $view->render('views/survey.html');
