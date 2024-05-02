@@ -12,7 +12,7 @@
     <h2>Thank you for answering the survey, {{@SESSION.name}}</h2>
     <h3>Your answers:</h3>
     <repeat group="{{ @SESSION.options }}" value="{{ @option }}">
-        <p>{{@option}}</p>
+        <span>{{@option}}, </span>
     </repeat>
 </body>
 </html>
